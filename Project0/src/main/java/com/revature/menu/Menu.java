@@ -31,7 +31,8 @@ public class Menu {
 					}
 					System.out.println("Password:\n");
 					password = scan.nextLine();
-					u = us.login(username);
+					User ux = new User(username, password, 0, "Customer");
+					u = us.login(ux);
 					
 					if(u == null) {
 						System.out.println("Username not registered, please try again or enter 4 to return to the menu");
@@ -71,7 +72,8 @@ public class Menu {
 				do {
 					System.out.println("Please enter the username you would like to register with.\n");
 					username = scan.nextLine();
-					u = us.login(username);
+					u = us.login(new User(username, "", 0, "Customer"));
+					
 					if(username.equalsIgnoreCase("4")) {
 						break mainswitch;
 					}

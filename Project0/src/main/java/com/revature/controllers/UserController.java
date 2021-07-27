@@ -16,13 +16,13 @@ public class UserController {
 	public void login(Context ctx) {
 		log.trace("Login method called");
 		log.debug(ctx.body());
+		
 		// Try to use a JSON Marshaller to create an object of this type.
 		// Javalin does not come with a JSON Marshaller but prefers Jackson. You could also use GSON
 		User u = ctx.bodyAsClass(User.class);
-		log.debug(u);
 		
 		// Use the request data to obtain the data requested
-		u = us.login(u.getUsername());
+		u = us.login(u);
 		log.debug(u);
 		
 		// Create a session if the login was successful
@@ -43,7 +43,7 @@ public class UserController {
 		User u = ctx.bodyAsClass(User.class);
 
 		if(us.checkAvailability(u.getUsername())) {
-			User newUser = us.register(u.getUsername(), u.getPassword(), 0, "User");
+			User newUser = us.register(u.getUsername(), u.getPassword(), 0, "Customer");
 			ctx.status(201);
 			ctx.json(newUser);
 		} else {
@@ -113,12 +113,12 @@ public class UserController {
 			return;
 		}
 		if(loggedUser.isPendingLoan()) {
-			ctx.status(400);
+			ctx.status(200);
 			ctx.html("You already have a pending loan for $" + loggedUser.getLoanAmount() + ".");
 			return;
 		}
 		if(loggedUser.isOutstandingLoan()) {
-			ctx.status(400);
+			ctx.status(200);
 			ctx.html("You already have an outstanding loan for $" + loggedUser.getAmountDue() + ".");
 			return;
 		}
@@ -138,7 +138,7 @@ public class UserController {
 			return;
 		}
 		if(!loggedUser.isPendingLoan()) {
-			ctx.status(400);
+			ctx.status(200);
 			ctx.html("You do not currently have a pending loan.");
 			return;
 		}

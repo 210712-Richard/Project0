@@ -26,16 +26,7 @@ public class User implements Serializable{
 		this.username = username;
 		this.password = password;
 		this.balance = balance;
-		this.pendingLoan = pendingLoan;
-		this.loanAmount = loanAmount;
-		this.withdrawAmount = withdrawAmount;
-		this.depositAmount = depositAmount;
-		this.amountDue = amountDue;
-		this.payment = payment;
 	}
-
-	
-	
 	
 	public boolean isOutstandingLoan() {
 		return outstandingLoan;
@@ -117,6 +108,13 @@ public class User implements Serializable{
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", balance=" + balance + ", type=" + type
+				+ ", pendingLoan=" + pendingLoan + ", loanAmount=" + loanAmount + ", withdrawAmount=" + withdrawAmount
+				+ ", depositAmount=" + depositAmount + ", amountDue=" + amountDue + ", payment=" + payment
+				+ ", outstandingLoan=" + outstandingLoan + ", userToApprove=" + userToApprove + "]";
 	}
 }
 

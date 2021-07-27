@@ -35,27 +35,27 @@ public class Driver {
 		// object::method <- Reference to a method as a function we can pass to a method
 		
 		// As a user, I can log in.
-		app.post("/users", uc::login);
+		app.post("/user/login", uc::login);
 		// As a user, I can register for a user account.
-		app.put("/users/:username", uc::register);
+		app.post("/user/register", uc::register);
 		// As a user, I can log out.
-		app.delete("/users", uc::logout);
+		app.delete("/user/logout", uc::logout);
 		// As a user, I can get my current balance.
-		app.get("/users/:username/balance", uc::getBalance);
+		app.get("/user/:username/balance", uc::getBalance);
 		// As a user, I can deposit funds.
-		app.put("/users/:username/deposit", uc::deposit);
+		app.put("/user/:username/deposit", uc::deposit);
 		// As a user, I can withdraw funds.
-		app.put("/users/:username/withdraw", uc::withdraw);
+		app.put("/user/:username/withdraw", uc::withdraw);
 		// As a user, I can apply for a loan.
-		app.put("/users/:username/applyForLoan", uc::applyLoan);
+		app.put("/user/:username/applyForLoan", uc::applyLoan);
 		// As a user, I can cancel an existing loan request.
-		app.put("/users/:username/cancelLoan", uc::cancelLoan);
+		app.put("/user/:username/cancelLoan", uc::cancelLoan);
 		// As a user, I can make payments on an outstanding loan (payments will be made by deducting funds from account)
-		app.put("/users/:username/payLoan", uc::payLoan);
+		app.put("/user/:username/payLoan", uc::payLoan);
 		
 		// As an Admin, I can do all of the things that a user can except register
 		// Additionally, as an Admin, I can approve pending loans
-		app.put("/users/:username/:userToApprove/approveLoan", uc::approveLoan);
+		app.put("/user/:username/:userToApprove/approveLoan", uc::approveLoan);
 
 		
 	}

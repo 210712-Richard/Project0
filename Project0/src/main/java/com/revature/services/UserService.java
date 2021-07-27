@@ -7,8 +7,8 @@ public class UserService {
 	public UserDAO ud = new UserDAO();
 	
 	
-	public User login(String username) {
-		User u = ud.getUser(username);
+	public User login(User user) {
+		User u = ud.getUser(user);
 		return u;
 	}
 	
@@ -18,6 +18,10 @@ public class UserService {
 		ud.addUser(u);
 		ud.writeToFile();
 		return u;
+	}
+	
+	public void delete(String username, String password) {
+		
 	}
 	
 	public boolean checkAvailability(String newName) {
@@ -54,7 +58,7 @@ public class UserService {
 	}
 	
 	public void approveLoan(User userToApprove) {
-		User u = ud.getUser(userToApprove.getUsername());
+		User u = ud.getUser(userToApprove);
 		u.setAmountDue(u.getLoanAmount());
 		u.setBalance(u.getBalance() + u.getLoanAmount());
 		u.setLoanAmount(0);
