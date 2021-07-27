@@ -56,7 +56,7 @@ public class UserDAO {
 	
 	public void updateUser(User u) {
 		for(User user : users) {
-			if(user.getUsername().equals(u.getUsername())) {
+			if(user.getUsername().equalsIgnoreCase(u.getUsername())) {
 				user = u;
 				writeToFile();
 			}
