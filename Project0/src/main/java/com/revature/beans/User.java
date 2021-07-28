@@ -18,7 +18,7 @@ public class User implements Serializable{
 	private String userToApprove;
 	
 	public User() {
-		
+		super();
 	}
 	public User(String username, String password, double balance, String type) {
 		super();
@@ -28,6 +28,14 @@ public class User implements Serializable{
 		this.balance = balance;
 	}
 	
+	
+	
+	public String getUserToApprove() {
+		return userToApprove;
+	}
+	public void setUserToApprove(String userToApprove) {
+		this.userToApprove = userToApprove;
+	}
 	public boolean isOutstandingLoan() {
 		return outstandingLoan;
 	}

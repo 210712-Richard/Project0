@@ -21,19 +21,6 @@ public class Driver {
 		
 		UserController uc = new UserController();
 		
-		// Javalin has created a web server for us and we have
-		// to tell Javalin how to handle the requests it receives.
-		
-		// app.METHOD("URN", CALLBACK_FUNCTION);
-		// The Javalin CALLBACK_FUNCTION takes an argument ctx which 
-		// represents the request and the response to the request.
-		// ctx.body() - The body of the request
-		// ctx.html() - Sends html as the response
-		// ctx.status() - changes the status of the response
-		app.get("/", (ctx)->ctx.html("Hello Woreld"));
-		
-		// object::method <- Reference to a method as a function we can pass to a method
-		
 		// As a user, I can log in.
 		app.post("/user/login", uc::login);
 		// As a user, I can register for a user account.

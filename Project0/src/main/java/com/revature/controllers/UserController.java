@@ -22,9 +22,7 @@ public class UserController {
 		User u = ctx.bodyAsClass(User.class);
 		
 		// Use the request data to obtain the data requested
-		u = us.login(u);
-		log.debug(u);
-		
+		u = us.login(u);		
 		// Create a session if the login was successful
 		if(u != null) {
 			// Save the user object as loggedUser in the session
@@ -40,6 +38,8 @@ public class UserController {
 	}
 	
 	public void register(Context ctx) {
+		log.trace("Register method called");
+		log.debug(ctx.body());
 		User u = ctx.bodyAsClass(User.class);
 
 		if(us.checkAvailability(u.getUsername())) {
@@ -55,6 +55,7 @@ public class UserController {
 	
 	public void getBalance(Context ctx) {
 		log.trace("getBalance method called");
+		log.debug(ctx.body());
 
 		String username = ctx.pathParam("username");
 		User loggedUser = (User) ctx.sessionAttribute("loggedUser");
@@ -70,6 +71,8 @@ public class UserController {
 	}
 	
 	public void withdraw(Context ctx) {
+		log.trace("Withdraw method called");
+		log.debug(ctx.body());
 		String username = ctx.pathParam("username");
 		User loggedUser = (User)ctx.sessionAttribute("loggedUser");
 		if(loggedUser == null || !loggedUser.getUsername().equalsIgnoreCase(username)) {
@@ -91,6 +94,8 @@ public class UserController {
 	}
 	
 	public void deposit(Context ctx) {
+		log.trace("Deposit method called");
+		log.debug(ctx.body());
 		String username = ctx.pathParam("username");
 		User loggedUser = (User)ctx.sessionAttribute("loggedUser");
 		if(loggedUser == null || !loggedUser.getUsername().equalsIgnoreCase(username)) {
@@ -105,7 +110,7 @@ public class UserController {
 	
 	public void applyLoan(Context ctx) {
 		log.trace("applyLoan method called");
-
+		log.debug(ctx.body());
 		String username = ctx.pathParam("username");
 		User loggedUser = (User)ctx.sessionAttribute("loggedUser");
 		if(loggedUser == null || !loggedUser.getUsername().equalsIgnoreCase(username)) {
@@ -130,7 +135,7 @@ public class UserController {
 	
 	public void cancelLoan(Context ctx) {
 		log.trace("cancelLoan method called");
-
+		log.debug(ctx.body());
 		String username = ctx.pathParam("username");
 		User loggedUser = (User)ctx.sessionAttribute("loggedUser");
 		if(loggedUser == null || !loggedUser.getUsername().equalsIgnoreCase(username)) {
@@ -149,6 +154,8 @@ public class UserController {
 	}
 	
 	public void payLoan(Context ctx) {
+		log.trace("payLoan method called");
+		log.debug(ctx.body());
 		String username = ctx.pathParam("username");
 		User loggedUser = (User)ctx.sessionAttribute("loggedUser");
 		if(loggedUser == null || !loggedUser.getUsername().equalsIgnoreCase(username)) {
@@ -170,6 +177,8 @@ public class UserController {
 	}
 	
 	public void approveLoan(Context ctx) {
+		log.trace("approveLoan method called");
+		log.debug(ctx.body());
 		String username = ctx.pathParam("username");
 		String userToApprove = ctx.pathParam("userToApprove");
 		User loggedUser = (User)ctx.sessionAttribute("loggedUser");
@@ -181,11 +190,17 @@ public class UserController {
 			ctx.status(403);
 			return;
 		}
+		if(!ud.getUser(userToApprove).isPendingLoan()){
+			ctx.html("There is no pending loan for " + userToApprove);
+			return;
+		}
 		us.approveLoan(ud.getUser(userToApprove));
 		ctx.html("The pending loan for " + userToApprove + " has been approved");
 	}
 	
 	public void logout(Context ctx) {
+		log.trace("Logout method called");
+		log.debug(ctx.body());
 		ctx.req.getSession().invalidate();
 		ctx.status(204);
 	}

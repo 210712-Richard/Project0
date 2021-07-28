@@ -20,9 +20,11 @@ public class UserService {
 		return u;
 	}
 	
-	public void delete(String username, String password) {
-		
+	public void delete(User u) {		
+		ud.deleteUser(u);
+		ud.writeToFile();
 	}
+	
 	
 	public boolean checkAvailability(String newName) {
 		return ud.getUsers()
@@ -80,4 +82,5 @@ public class UserService {
 		}
 		ud.updateUser(u);
 	}
+	
 }

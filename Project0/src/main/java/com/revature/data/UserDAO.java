@@ -9,8 +9,6 @@ import com.revature.beans.*;
 public class UserDAO {
 	private static String filename = "users.dat";
 	private static List<User> users;
-	
-
 
 	static {
 		DataSerializer<User> ds = new DataSerializer<User>();
@@ -31,6 +29,14 @@ public class UserDAO {
 		users.add(u);
 	}
 	
+	public void deleteUser(User u) {
+		for(User user: getUsers()) {
+			if(u.getUsername().equals(user.getUsername())) {
+				users.remove(user);
+			}
+		}
+	}
+	
 	public List<User> getUsers(){
 		return users;
 	}
@@ -45,6 +51,16 @@ public class UserDAO {
 		}
 		return null;
 	}
+	public User getUser(String cUser) {
+		for(User user : users) {
+			if(user.getUsername().toLowerCase().equals(cUser.toLowerCase())
+					) {
+				return user;
+			}
+		}
+		return null;
+	}
+	
 	
 	public void updateUser(User u) {
 		for(User user : users) {
@@ -58,4 +74,6 @@ public class UserDAO {
 	public void writeToFile() {
 		new DataSerializer<User>().writeObjectsToFile(users, filename);
 	}
+	
+
 }
