@@ -15,7 +15,7 @@ public class User implements Serializable{
 	private double amountDue;
 	private double payment;
 	private boolean outstandingLoan = false;
-	private String userToApprove;
+	private String userDecision;
 	
 	public User() {
 		super();
@@ -31,10 +31,10 @@ public class User implements Serializable{
 	
 	
 	public String getUserToApprove() {
-		return userToApprove;
+		return userDecision;
 	}
-	public void setUserToApprove(String userToApprove) {
-		this.userToApprove = userToApprove;
+	public void setUserToApprove(String userDecision) {
+		this.userDecision = userDecision;
 	}
 	public boolean isOutstandingLoan() {
 		return outstandingLoan;
@@ -122,7 +122,7 @@ public class User implements Serializable{
 		return "User [username=" + username + ", password=" + password + ", balance=" + balance + ", type=" + type
 				+ ", pendingLoan=" + pendingLoan + ", loanAmount=" + loanAmount + ", withdrawAmount=" + withdrawAmount
 				+ ", depositAmount=" + depositAmount + ", amountDue=" + amountDue + ", payment=" + payment
-				+ ", outstandingLoan=" + outstandingLoan + ", userToApprove=" + userToApprove + "]";
+				+ ", outstandingLoan=" + outstandingLoan + ", userToApprove=" + userDecision + "]";
 	}
 }
 

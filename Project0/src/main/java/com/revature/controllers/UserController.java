@@ -180,7 +180,7 @@ public class UserController {
 		log.trace("approveLoan method called");
 		log.debug(ctx.body());
 		String username = ctx.pathParam("username");
-		String userToApprove = ctx.pathParam("userToApprove");
+		String userDecision = ctx.pathParam("userDecision");
 		User loggedUser = (User)ctx.sessionAttribute("loggedUser");
 		if(loggedUser == null || !loggedUser.getUsername().equalsIgnoreCase(username)) {
 			ctx.status(403);
@@ -190,12 +190,34 @@ public class UserController {
 			ctx.status(403);
 			return;
 		}
-		if(!ud.getUser(userToApprove).isPendingLoan()){
-			ctx.html("There is no pending loan for " + userToApprove);
+		if(!ud.getUser(userDecision).isPendingLoan()){
+			ctx.html("There is no pending loan for " + userDecision);
 			return;
 		}
-		us.approveLoan(ud.getUser(userToApprove));
-		ctx.html("The pending loan for " + userToApprove + " has been approved");
+		us.approveLoan(ud.getUser(userDecision));
+		ctx.html("The pending loan for " + userDecision + " has been approved");
+	}
+	
+	public void denyLoan(Context ctx) {
+		log.trace("denyLoan method called");
+		log.debug(ctx.body());
+		String username = ctx.pathParam("username");
+		String userDecision = ctx.pathParam("userDecision");
+		User loggedUser = (User)ctx.sessionAttribute("loggedUser");
+		if(loggedUser == null || !loggedUser.getUsername().equalsIgnoreCase(username)) {
+			ctx.status(403);
+			return;
+		}
+		if(!loggedUser.getType().equals("Admin")) {
+			ctx.status(403);
+			return;
+		}
+		if(!ud.getUser(userDecision).isPendingLoan()){
+			ctx.html("There is no pending loan for " + userDecision);
+			return;
+		}
+		us.denyLoan(ud.getUser(userDecision));
+		ctx.html("The pending loan for " + userDecision + " has been denied");
 	}
 	
 	public void logout(Context ctx) {

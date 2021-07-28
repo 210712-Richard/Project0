@@ -59,8 +59,8 @@ public class UserService {
 		ud.updateUser(u);
 	}
 	
-	public void approveLoan(User userToApprove) {
-		User u = ud.getUser(userToApprove);
+	public void approveLoan(User userDecision) {
+		User u = ud.getUser(userDecision);
 		u.setAmountDue(u.getLoanAmount());
 		u.setBalance(u.getBalance() + u.getLoanAmount());
 		u.setLoanAmount(0);
@@ -68,6 +68,16 @@ public class UserService {
 		u.setOutstandingLoan(true);
 		ud.updateUser(u);
 	}
+	
+	public void denyLoan(User userDecision) {
+		User u = ud.getUser(userDecision);
+		u.setAmountDue(0);
+		u.setLoanAmount(0);
+		u.setPendingLoan(false);
+		u.setOutstandingLoan(false);
+		ud.updateUser(u);
+	}
+	
 	
 	public void updateUser(User u) {
 		ud.updateUser(u);

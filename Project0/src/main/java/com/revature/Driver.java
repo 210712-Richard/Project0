@@ -42,7 +42,9 @@ public class Driver {
 		
 		// As an Admin, I can do all of the things that a user can except register
 		// Additionally, as an Admin, I can approve pending loans
-		app.put("/user/:username/:userToApprove/approveLoan", uc::approveLoan);
+		app.put("/user/:username/:userDecision/approveLoan", uc::approveLoan);
+		// Additionally, as an Admin, I can approve pending loans
+		app.put("/user/:username/:userDecision/denyLoan", uc::denyLoan);
 
 		
 	}
